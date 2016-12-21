@@ -225,6 +225,7 @@ class ESNodeGraphiteMetrics < Sensu::Plugin::Metric::CLI::Graphite
       metrics['jvm.mem.max_heap_size_in_bytes']   = 0
 
       node['jvm']['mem']['pools'].each do |k, v|
+        metrics["jvm.mem.#{k.tr(' ', '_')}.used_in_bytes"] = v['used_in_bytes']
         metrics["jvm.mem.#{k.tr(' ', '_')}.max_in_bytes"] = v['max_in_bytes']
         metrics['jvm.mem.max_heap_size_in_bytes'] += v['max_in_bytes']
       end
